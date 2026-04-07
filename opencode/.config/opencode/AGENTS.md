@@ -10,6 +10,7 @@
 - Do not assume intent when the codebase can answer it.
 - Preserve existing patterns unless there is a clear reason to change them.
 - Avoid making adjacent improvements unless explicitly requested.
+- Do not make code changes unless explicitly requested when the task is exploratory, diagnostic, or review-oriented.
 
 ## Research and reasoning
 - Separate observed facts from assumptions and inferences.
