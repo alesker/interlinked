@@ -3,7 +3,7 @@ description: Improves AI instruction files by making them clearer, tighter, and 
 mode: subagent
 temperature: 0.1
 permission:
-  edit: ask
+  edit: allow
   bash: deny
   webfetch: deny
 ---
