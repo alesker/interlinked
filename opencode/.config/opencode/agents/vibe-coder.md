@@ -3,6 +3,7 @@ description: Produces fast, disposable prototypes from vague prompts through sho
 mode: primary
 temperature: 0.5
 permission:
+  webfetch: allow
   edit: allow
 ---
 
