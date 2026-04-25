@@ -17,6 +17,7 @@ stow opencode -t ~ --verbose=2
 #### Primary agents
 - Review 
 - Vibe-Coder :shit: 
+- `Pair-Programmer` :ghost:
 
 #### Sub-agents
 - prompt-editor
