@@ -1,6 +1,8 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["@mohak34/opencode-notifier@latest"],
+  "plugin": [
+    "@mohak34/opencode-notifier@latest"
+  ],
   "permission": {
     "edit": "ask",
     "webfetch": "ask",
@@ -11,6 +13,13 @@
       "git log*": "allow",
       "git show*": "allow",
       "git status*": "allow",
+      "gh repo view*": "allow",
+      "gh api repos/*": "ask",
+      "gh pr view*": "allow",
+      "gh pr list*": "allow",
+      "gh issue view*": "allow",
+      "gh issue list*": "allow",
+      "gh search*": "allow",
       "*&&*": "ask",
       "*||*": "ask",
       "*;*": "ask",
@@ -23,7 +32,8 @@
       "*$(*": "ask",
       "*`*": "ask",
       "*<(*": "ask",
-      "*!*": "ask"
+      "*!*": "ask",
+      "*eval*": "ask"
     }
   },
   "agent": {
