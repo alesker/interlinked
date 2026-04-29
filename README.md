@@ -7,7 +7,7 @@
 This setup targets [OpenCode](https://github.com/anomalyco/opencode) and is managed with [GNU Stow](https://www.gnu.org/software/stow/)
 
 ```
-stow opencode -t ~ --verbose=2
+stow .
 ```
 
 ## Within cells interlinked
