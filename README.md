@@ -15,6 +15,8 @@ stow opencode -t ~ --verbose=2
 ### Agents
 
 #### Primary agents
+- Plan <sup>[Built-in]</sup>
+- Build <sup>[Built-in]</sup>
 - Review 
 - Vibe-Coder :shit: 
 - `Pair-Programmer` :ghost:

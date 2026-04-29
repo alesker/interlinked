@@ -1,0 +1,4 @@
+---
+permission:
+  webfetch: allow
+---

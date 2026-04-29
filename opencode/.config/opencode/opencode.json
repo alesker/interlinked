@@ -36,18 +36,5 @@
       "*!*": "ask",
       "*eval*": "ask"
     }
-  },
-  "agent": {
-    "plan": {
-      "permission": {
-        "webfetch": "allow"
-      }
-    },
-    "build": {
-      "permission": {
-        "webfetch": "allow",
-        "edit": "allow"
-      }
-    }
   }
 }
