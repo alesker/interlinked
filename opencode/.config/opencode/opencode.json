@@ -20,6 +20,7 @@
       "gh issue view*": "allow",
       "gh issue list*": "allow",
       "gh search*": "allow",
+      "mkdir*": "allow",
       "*&&*": "ask",
       "*||*": "ask",
       "*;*": "ask",

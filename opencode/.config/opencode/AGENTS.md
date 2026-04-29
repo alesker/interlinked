@@ -38,4 +38,7 @@
 ## Skill Routing Hints
 - For exploratory technical investigation, prefer the `technical-research` skill.
 - For defect diagnosis, regressions, crashes, flaky tests, or unclear failures, prefer the `bug-triage` skill.
-- For review of an existing patch, diff, or completed change, prefer the `change-review` skill.
+- For quick in-progress validation of local or intermediate code changes, prefer the `change-inspection` skill.
+- Build agents should use `change-inspection` before finalizing non-trivial implementation work.
+- Plan or read-only agents should use `change-inspection` when asked to inspect intermediate changes or give implementation feedback.
+- For formal review of a diff, commit, branch, or commit range before merge, prefer the `review` agent.
