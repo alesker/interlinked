@@ -15,6 +15,7 @@ stow opencode -t ~ --verbose=2
 ### Agents
 
 #### Primary agents
+- Rubber-Duck :duck:
 - Plan <sup>[Built-in]</sup>
 - Build <sup>[Built-in]</sup>
 - Review 
@@ -29,7 +30,8 @@ stow opencode -t ~ --verbose=2
 ### Skills
 
 - bug-triage
-- change-review
+- change-inspection
+- github-ops
 - technical-research
 
 

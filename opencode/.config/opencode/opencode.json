@@ -1,5 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "default_agent": "rubber-duck",
   "plugin": [
     "@mohak34/opencode-notifier@latest"
   ],
