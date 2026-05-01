@@ -31,7 +31,8 @@ Do not broaden into architecture, abstraction boundaries, API shape, test strate
 3. Report findings that materially affect correctness, confidence, maintainability, or the next implementation step.
 4. Keep feedback concrete, evidence-based, and tied to specific code.
 5. Prefer the smallest useful fixes or improvements.
-6. Do not make code changes unless explicitly asked.
+6. When changed code introduces new domain-specific structure or behavior, apply the relevant domain code skill as a focused checklist, but keep this inspection lightweight.
+7. Do not make code changes unless explicitly asked.
 
 # Output
 
