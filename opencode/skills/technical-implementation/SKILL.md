@@ -14,16 +14,21 @@ Do not use this for narrow edits inside established code unless the change is co
 # Lifecycle
 
 1. Trigger: confirm the task adds new structure or behavior, or is otherwise complex, risky, or cross-domain.
-2. Domain skill selection: identify the primary language, framework, runtime, or domain. Before editing, load the relevant code skill when one exists, such as `go-code` or `shell-code`.
-3. Implementation guidance: use the domain skill upfront to shape the work, not only as a final checklist.
-4. Local fit: prefer clear existing patterns; use the domain skill to avoid weak new ones.
-5. Scope control: keep changes small and cohesive. Do not add abstractions, dependencies, or compatibility layers unless required.
+2. Domain skill routing: identify the primary language, framework, runtime, or domain affected by the implementation.
+3. Domain skill loading: before editing, load every relevant domain code skill that exists.
+   Examples: load `go-code` for Go files and Go packages; load `shell-code` for shell scripts.
+4. Implementation guidance: use this skill for the general implementation workflow, and use loaded domain skills upfront to shape domain-specific design choices.
+5. Local fit: prefer clear existing patterns; use loaded domain skills to avoid weak new structure or behavior.
+6. Scope control: keep changes small and cohesive. Do not add abstractions, dependencies, or compatibility layers unless required.
+
+Domain skills are additive to `technical-implementation`; they do not replace this implementation workflow. If multiple domains are materially touched, load each relevant domain skill.
 
 # Final inspection
 
 Before finalizing non-trivial implementation work, use `change-inspection` as the lightweight inspection pass.
 
-If the change introduced domain-specific structure or behavior, also apply the relevant domain code skill as a focused final checklist and address concrete findings.
+If the change introduced domain-specific structure or behavior, keep every relevant domain code skill loaded and apply it as a focused final checklist.
+Examples: `go-code` for Go changes, `shell-code` for shell changes.
 
 Do not turn finalization into formal PR review; leave PR-level merge judgment to the Review agent.
 

@@ -14,7 +14,7 @@ This is a lightweight local correctness pass, not a formal PR review. It is inte
 
 # Scope
 
-Focus on touched code and nearby paths needed to assess local correctness:
+Focus on touched code and nearby paths needed to assess local correctness. Use loaded domain skills only where they apply to the inspected change:
 - spelling, naming, and obvious consistency mistakes
 - suspicious conditionals, branches, or data flow
 - missed edge cases or incomplete state handling
@@ -24,15 +24,18 @@ Focus on touched code and nearby paths needed to assess local correctness:
 
 Do not broaden into architecture, abstraction boundaries, API shape, test strategy, merge risk, or PR-readiness. Leave formal review judgment to the review agent.
 
-# Instructions
+# Lifecycle
 
-1. Summarize the inspected change in plain language.
-2. Check only the touched code and directly relevant local paths.
-3. Report findings that materially affect correctness, confidence, maintainability, or the next implementation step.
-4. Keep feedback concrete, evidence-based, and tied to specific code.
-5. Prefer the smallest useful fixes or improvements.
-6. When changed code introduces new domain-specific structure or behavior, apply the relevant domain code skill as a focused checklist, but keep this inspection lightweight.
-7. Do not make code changes unless explicitly asked.
+1. Trigger: confirm this is a quick validation of in-progress local changes, intermediate user changes, or a secondary local correctness pass.
+2. Domain skill routing: identify the primary language, framework, runtime, or domain of the touched files.
+3. Domain skill loading: before inspecting, load every relevant domain code skill that exists.
+   Examples: load `go-code` for Go files and Go packages; load `shell-code` for shell scripts.
+4. Inspection: use this skill for the lightweight local correctness workflow, and use loaded domain skills as focused checklists for domain-specific issues.
+5. Scope control: check only the touched code and directly relevant local paths needed to assess local correctness.
+6. Feedback: report findings that materially affect correctness, confidence, maintainability, or the next implementation step.
+7. No edits: do not make code changes unless explicitly asked.
+
+Domain skills are additive to `change-inspection`; they do not replace this inspection workflow. If multiple domains are materially touched, load each relevant domain skill.
 
 # Output
 

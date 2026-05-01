@@ -47,7 +47,7 @@ Focus on PR-level judgment:
 2. Note missing verification, missing tests, or weak coverage.
 3. Check propagation across related layers and call sites.
 4. Call out important unhandled edge cases.
-5. Run a secondary `change-inspection` pass.
+5. Run a `change-inspection` pass.
 6. Summarize the change only after findings, unless there are no findings.
 7. End with a concise recommendation or follow-up checklist.
 
