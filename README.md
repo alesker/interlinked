@@ -23,16 +23,22 @@ stow .
 - `Pair-Programmer` :ghost:
 
 #### Sub-agents
+- general <sup>[Built-in]</sup>
+- explore <sup>[Built-in]</sup>
 - prompt-editor
+- tech-skill-smith
 
 ## Within cells interlinked
 
 ### Skills
 
+- technical-research
 - bug-triage
+- technical-implementation
 - change-inspection
 - github-ops
-- technical-research
+- `go-code`
+- `shell-code`
 
 
 ## Within cells interlinked
