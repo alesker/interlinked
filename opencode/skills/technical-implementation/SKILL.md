@@ -15,7 +15,7 @@ Do not use this for narrow edits inside established code unless the change is co
 
 1. Trigger: confirm the task adds new structure or behavior, or is otherwise complex, risky, or cross-domain.
 2. Domain skill routing: identify the primary language, framework, runtime, or domain affected by the implementation.
-3. Domain skill loading: before editing, load every relevant domain code skill that exists.
+3. Domain skill loading: before editing, load every relevant domain-specific skill that exists.
    Examples: load `go-code` for Go files and Go packages; load `shell-code` for shell scripts.
 4. Implementation guidance: use this skill for the general implementation workflow, and use loaded domain skills upfront to shape domain-specific design choices.
 5. Local fit: prefer clear existing patterns; use loaded domain skills to avoid weak new structure or behavior.
@@ -27,7 +27,7 @@ Domain skills are additive to `technical-implementation`; they do not replace th
 
 Before finalizing non-trivial implementation work, use `change-inspection` as the lightweight inspection pass.
 
-If the change introduced domain-specific structure or behavior, keep every relevant domain code skill loaded and apply it as a focused final checklist.
+If the change introduced domain-specific structure or behavior, keep every relevant domain-specific skill loaded and apply it as a focused final checklist.
 Examples: `go-code` for Go changes, `shell-code` for shell changes.
 
 Do not turn finalization into formal PR review; leave PR-level merge judgment to the Review agent.

@@ -28,7 +28,7 @@ Do not broaden into architecture, abstraction boundaries, API shape, test strate
 
 1. Trigger: confirm this is a quick validation of in-progress local changes, intermediate user changes, or a secondary local correctness pass.
 2. Domain skill routing: identify the primary language, framework, runtime, or domain of the touched files.
-3. Domain skill loading: before inspecting, load every relevant domain code skill that exists.
+3. Domain skill loading: before inspecting, load every relevant domain-specific skill that exists.
    Examples: load `go-code` for Go files and Go packages; load `shell-code` for shell scripts.
 4. Inspection: use this skill for the lightweight local correctness workflow, and use loaded domain skills as focused checklists for domain-specific issues.
 5. Scope control: check only the touched code and directly relevant local paths needed to assess local correctness.
