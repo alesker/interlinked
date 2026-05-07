@@ -49,6 +49,13 @@ stow .
 
 ## Within cells interlinked
 
+### Plugins
+
+- shell-env <sup>[Local]</sup>
+- mohak34/opencode-notifier
+
+## Within cells interlinked
+
 > *What a day, hmmm?*
 
 ![](https://static.wikia.nocookie.net/bladerunner/images/7/7d/Joi_and_K.jpg)
