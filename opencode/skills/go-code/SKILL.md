@@ -20,6 +20,7 @@ During review, flag only issues that affect correctness, lifecycle safety, coupl
 
 Prefer fewer high-signal findings and the smallest idiomatic fix.
 Avoid broad rewrites unless the diff introduces a Go-specific design problem that cannot be fixed locally.
+Treat misleading or framework-shaped naming as a maintainability/API clarity issue, not just a style preference.
 
 ## Implementation guidance
 
@@ -36,6 +37,10 @@ Use only checks relevant to the diff or implementation output.
 - Prefer one cohesive package over many tiny packages unless the split reduces conceptual complexity.
 - Keep business logic near the feature; keep HTTP handlers, CLI commands, and event consumers thin.
 - Do not leak DB rows, cache keys, ORM models, or transport DTOs into business APIs unless intentional.
+- Review exported Go identifiers as they read from callers: `package.Type`, `package.NewType`, and method names together should communicate the domain role without framework or layer jargon.
+- Challenge non-idiomatic role names like `Controller`, `Manager`, `Helper`, `Util`, `Processor`, unless the type clearly performs that exact role in the package.
+- `Service` is acceptable as a generic application/domain API boundary when the type coordinates domain logic, persistence, authorization, validation, or external dependencies behind a stable package API. Do not flag `Service` merely because it is generic.
+- Do flag `Service` when the type has a narrower concrete responsibility that can be named more precisely, such as `Store`, `Client`, `Checker`, `Reporter`, `Parser`, `Scheduler`, `Authenticator`, `Registry`, `Directory`, `Accounts`, or another domain-specific noun.
 - Export only what callers need; avoid stutter such as `user.UserService` when `user.Service` is clear.
 - Prefer standard library conventions when they fit.
 
