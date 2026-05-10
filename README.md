@@ -40,12 +40,17 @@ stow .
 - `go-code`
 - `shell-code`
 
-
 ## Within cells interlinked
 
 ### Commands
 
 - onboard-agents
+
+## Within cells interlinked
+
+### MCP Tools
+
+- linear
 
 ## Within cells interlinked
 
