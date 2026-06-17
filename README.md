@@ -44,6 +44,7 @@ stow .
 
 ### Commands
 
+- goal
 - onboard-agents
 
 ## Within cells interlinked
@@ -57,6 +58,7 @@ stow .
 ### Plugins
 
 - shell-env <sup>[Local]</sup>
+- goal <sup>[Local]</sup>
 - mohak34/opencode-notifier
 
 ## Within cells interlinked
