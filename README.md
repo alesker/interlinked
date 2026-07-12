@@ -4,11 +4,12 @@
 
 ## Within cells interlinked
 
-This setup targets [OpenCode](https://github.com/anomalyco/opencode) and is managed with [GNU Stow](https://www.gnu.org/software/stow/)
+This setup targets [OpenCode](https://github.com/anomalyco/opencode) and is managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
 ```
 stow .
 ```
+
 
 ## Within cells interlinked
 
@@ -60,6 +61,32 @@ stow .
 - shell-env <sup>[Local]</sup>
 - goal <sup>[Local]</sup>
 - mohak34/opencode-notifier
+
+## Within cells interlinked
+
+### Claude Code
+
+OpenCode is the source of truth, but it's possible to derive a user-level [Claude Code](https://code.claude.com/docs/en/overview) setup from it.
+
+```sh
+./interlink-claude
+```
+
+This command
+- generates Claude-native agents under `~/.claude/agents`
+- links the canonical skills into `~/.claude/skills`
+- adds a managed import block to `~/.claude/CLAUDE.md`
+
+It owns only files recorded in `~/.claude/.interlink-claude-manifest` (existing Claude configuration is preserved, and name collisions fail without overwriting anything).
+A symlinked `CLAUDE.md` is also left untouched and reported as a conflict.
+
+Skill edits are reflected immediately through symlinks.
+Run the command again after changing agents or moving the checkout.
+Use `./interlink-claude --check` to report drift and conflicts without changing files.
+
+Agent translation accepts single-line, unquoted descriptions and scalar `allow`, `ask`, or `deny` values for `edit`, `bash`, and `webfetch`.
+It fails explicitly on more complex forms rather than silently generating different Claude behavior.
+
 
 ## Within cells interlinked
 
