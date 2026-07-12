@@ -31,6 +31,8 @@
 ## Safety and Environment Rules
 - Never install anything.
 - Never recommend package manager or system installer commands.
+- Mason-managed Neovim tools are available on `PATH`. Before writing an ad hoc Ruby, Python, shell, or other script to validate or transform a file, first check the project's configuration and use `which <tool>` to determine whether an existing formatter, linter, parser, or language tool can perform the task.
+- Prefer an existing dedicated tool when available. Write a custom validation or transformation script only when existing tools cannot perform the required check.
 - If a task depends on a missing tool, library, SDK, or CLI, state what is missing without proposing an install command.
 - Prefer solutions that use what is already available in the environment or already declared in the project.
 - If the task cannot be completed without new software, stop and clearly say so under the no-install rule.
