@@ -40,7 +40,7 @@ block_end='<!-- interlink-claude:end -->'
 changed=false
 
 if [ ! -d "$source_agents" ] || [ ! -d "$source_skills" ]; then
-  printf 'error: run this command from an intact interlinked checkout\n' >&2
+  printf '❌ Run this command from an intact interlinked checkout\n' >&2
   exit 1
 fi
 
@@ -49,6 +49,12 @@ trap 'rm -rf -- "$tmp_dir"' EXIT HUP INT TERM
 mkdir -p -- "$tmp_dir/agents"
 desired_manifest="$tmp_dir/manifest"
 : > "$desired_manifest"
+warnings_file="$tmp_dir/warnings"
+: > "$warnings_file"
+
+queue_warning() {
+  printf '%s\n' "$1" >> "$warnings_file"
+}
 
 yaml_quote() {
   local value=$1
@@ -85,11 +91,28 @@ permission_is_denied() {
   ' "$file"
 }
 
+granular_permissions() {
+  local file=$1
+  awk '
+    NR == 1 && $0 == "---" { frontmatter = 1; next }
+    frontmatter && $0 == "---" { exit }
+    frontmatter && $0 == "permission:" { permissions = 1; next }
+    permissions && $0 !~ /^  / { permissions = 0 }
+    permissions && $0 ~ /^  (edit|bash|webfetch):[[:space:]]*$/ {
+      value = $0
+      sub(/^  /, "", value)
+      sub(/:[[:space:]]*$/, "", value)
+      values = values (values == "" ? "" : ", ") value
+    }
+    END { print values }
+  ' "$file"
+}
+
 validate_agent_frontmatter() {
   local file=$1
   awk -v file="$file" '
     function fail(message) {
-      printf "error: %s: %s\n", file, message > "/dev/stderr"
+      printf "❌ %s: %s\n", file, message > "/dev/stderr"
       invalid = 1
     }
     NR == 1 && $0 == "---" { frontmatter = 1; next }
@@ -106,7 +129,7 @@ validate_agent_frontmatter() {
     $0 ~ /^  (edit|bash|webfetch):/ {
       value = $0
       sub(/^  [^:]+:[[:space:]]*/, "", value)
-      if (value !~ /^(allow|ask|deny)$/) {
+      if (value != "" && value !~ /^(allow|ask|deny)$/) {
         fail("edit, bash, and webfetch permissions must use scalar allow/ask/deny values")
       }
     }
@@ -151,12 +174,16 @@ EOF
 write_agent() {
   local source=$1
   local destination=$2
-  local name description
+  local name description granular
   local tools=""
 
   validate_agent_frontmatter "$source"
   name=$(basename -- "$source" .md)
   description=$(frontmatter_value description "$source")
+  granular=$(granular_permissions "$source")
+  if [ -n "$granular" ]; then
+    queue_warning "$name: Claude cannot enforce granular $granular permissions; using prompt-only behavior"
+  fi
   if [ -z "$description" ]; then
     case "$name" in
       build) description="Implements requested changes and verifies the result" ;;
@@ -236,10 +263,10 @@ for desired in "$tmp_dir/agents"/*.md; do
   name=$(basename -- "$desired" .md)
   target="$agents_dir/$name.md"
   if [ -L "$target" ]; then
-    printf 'conflict: refusing to replace symlinked agent %s\n' "$target" >&2
+    printf '❌ Refusing to replace symlinked agent %s\n' "$target" >&2
     conflicts=true
   elif [ -e "$target" ] && ! is_owned_agent "$target"; then
-    printf 'conflict: refusing to replace unowned agent %s\n' "$target" >&2
+    printf '❌ Refusing to replace unowned agent %s\n' "$target" >&2
     conflicts=true
   fi
 done
@@ -254,17 +281,17 @@ for source in "$source_skills"/*; do
     fi
     previous_target=$(manifest_skill_target "$name" 2>/dev/null || true)
     if [ -z "$previous_target" ]; then
-      printf 'conflict: refusing to replace unowned skill %s\n' "$target" >&2
+      printf '❌ Refusing to replace unowned skill %s\n' "$target" >&2
       conflicts=true
     elif [ ! -L "$target" ] || [ "$(readlink "$target")" != "$previous_target" ]; then
-      printf 'conflict: previously owned skill was replaced outside interlink-claude: %s\n' "$target" >&2
+      printf '❌ Previously owned skill was replaced outside interlink-claude: %s\n' "$target" >&2
       conflicts=true
     fi
   fi
 done
 
 if [ -L "$claude_md" ]; then
-  printf 'conflict: refusing to modify symlinked instruction file %s\n' "$claude_md" >&2
+  printf '❌ Refusing to modify symlinked instruction file %s\n' "$claude_md" >&2
   conflicts=true
 elif [ -f "$claude_md" ]; then
   marker_state=$(awk -v start="$block_start" -v end="$block_end" '
@@ -281,7 +308,7 @@ elif [ -f "$claude_md" ]; then
     END { print (!invalid && !inside) ? "valid" : "invalid" }
   ' "$claude_md")
   if [ "$marker_state" != valid ]; then
-    printf 'conflict: malformed interlink-claude block in %s\n' "$claude_md" >&2
+    printf '❌ Malformed interlink-claude block in %s\n' "$claude_md" >&2
     conflicts=true
   fi
 fi
@@ -307,22 +334,45 @@ if [ -s "$desired_claude_md" ]; then
 fi
 printf '%s\n@%s/opencode/AGENTS.md\n%s\n' "$block_start" "$script_dir" "$block_end" >> "$desired_claude_md"
 
-report_change() {
-  printf 'would update: %s\n' "$1"
+report_item() {
+  printf '%s %s: %s\n' "$1" "$2" "$3"
+}
+
+report_warnings() {
+  [ -s "$warnings_file" ] || return
+  printf '\n'
+  while IFS= read -r warning; do
+    printf '⚠️  %s\n' "$warning"
+  done < "$warnings_file"
+}
+
+report_drift() {
+  report_item "$1" "$2" "$3"
   changed=true
 }
+
+printf 'Translations:\n'
 
 for desired in "$tmp_dir/agents"/*.md; do
   [ -e "$desired" ] || continue
   target="$agents_dir/$(basename -- "$desired")"
-  if [ ! -f "$target" ] || ! cmp -s "$desired" "$target"; then
+  if [ ! -f "$target" ]; then
     if [ "$check_only" = true ]; then
-      report_change "$target"
+      report_drift '➕' agent "$target"
     else
       mkdir -p -- "$agents_dir"
       cp -- "$desired" "$target"
-      printf 'updated: %s\n' "$target"
+      report_item '➕' agent "$target"
     fi
+  elif ! cmp -s "$desired" "$target"; then
+    if [ "$check_only" = true ]; then
+      report_drift '🔄' agent "$target"
+    else
+      cp -- "$desired" "$target"
+      report_item '✨' agent "$target"
+    fi
+  else
+    report_item '✅' agent "$target"
   fi
 done
 
@@ -330,26 +380,44 @@ for source in "$source_skills"/*; do
   [ -d "$source" ] && [ -f "$source/SKILL.md" ] || continue
   name=$(basename -- "$source")
   target="$skills_dir/$name"
-  if [ ! -L "$target" ] || [ "$(readlink "$target")" != "$source" ]; then
+  if [ ! -e "$target" ] && [ ! -L "$target" ]; then
     if [ "$check_only" = true ]; then
-      report_change "$target"
+      report_drift '➕' skill "$target"
     else
       mkdir -p -- "$skills_dir"
+      ln -s -- "$source" "$target"
+      report_item '➕' skill "$target"
+    fi
+  elif [ ! -L "$target" ] || [ "$(readlink "$target")" != "$source" ]; then
+    if [ "$check_only" = true ]; then
+      report_drift '🔄' skill "$target"
+    else
       rm -f -- "$target"
       ln -s -- "$source" "$target"
-      printf 'linked: %s\n' "$target"
+      report_item '🔗' skill "$target"
     fi
+  else
+    report_item '✅' skill "$target"
   fi
 done
 
-if [ ! -f "$claude_md" ] || ! cmp -s "$desired_claude_md" "$claude_md"; then
+if [ ! -f "$claude_md" ]; then
   if [ "$check_only" = true ]; then
-    report_change "$claude_md"
+    report_drift '➕' instructions "$claude_md"
   else
     mkdir -p -- "$claude_home"
     cp -- "$desired_claude_md" "$claude_md"
-    printf 'updated managed block: %s\n' "$claude_md"
+    report_item '➕' instructions "$claude_md"
   fi
+elif ! cmp -s "$desired_claude_md" "$claude_md"; then
+  if [ "$check_only" = true ]; then
+    report_drift '🔄' instructions "$claude_md"
+  else
+    cp -- "$desired_claude_md" "$claude_md"
+    report_item '✨' instructions "$claude_md"
+  fi
+else
+  report_item '✅' instructions "$claude_md"
 fi
 
 if [ -f "$manifest" ]; then
@@ -360,38 +428,63 @@ if [ -f "$manifest" ]; then
     fi
     case "$type" in
       agent)
-        case "$name" in *[!a-z0-9-]*) printf 'warning: ignoring unsafe agent manifest entry: %s\n' "$name" >&2; continue ;; esac
+        case "$name" in *[!a-z0-9-]*) queue_warning "Ignoring unsafe agent manifest entry: $name"; continue ;; esac
         target="$agents_dir/$name.md"
         if is_owned_agent "$target"; then
-          if [ "$check_only" = true ]; then report_change "$target (remove)"; else rm -- "$target"; printf 'removed stale: %s\n' "$target"; fi
+          if [ "$check_only" = true ]; then
+            report_item '🗑️' agent "$target"
+            changed=true
+          else
+            rm -- "$target"
+            report_item '🗑️' agent "$target"
+          fi
         fi
         ;;
       skill)
-        case "$name" in *[!a-z0-9-]*) printf 'warning: ignoring unsafe skill manifest entry: %s\n' "$name" >&2; continue ;; esac
+        case "$name" in *[!a-z0-9-]*) queue_warning "Ignoring unsafe skill manifest entry: $name"; continue ;; esac
         target="$skills_dir/$name"
         if [ -n "$previous_target" ] && [ -L "$target" ] && [ "$(readlink "$target")" = "$previous_target" ]; then
-          if [ "$check_only" = true ]; then report_change "$target (remove)"; else rm -- "$target"; printf 'removed stale: %s\n' "$target"; fi
+          if [ "$check_only" = true ]; then
+            report_item '🗑️' skill "$target"
+            changed=true
+          else
+            rm -- "$target"
+            report_item '🗑️' skill "$target"
+          fi
         fi
         ;;
     esac
   done < "$manifest"
 fi
 
-if [ ! -f "$manifest" ] || ! cmp -s "$desired_manifest" "$manifest"; then
+if [ ! -f "$manifest" ]; then
   if [ "$check_only" = true ]; then
-    report_change "$manifest"
+    report_drift '➕' manifest "$manifest"
   else
     mkdir -p -- "$claude_home"
     cp -- "$desired_manifest" "$manifest"
+    report_item '➕' manifest "$manifest"
   fi
-fi
-
-if [ "$check_only" = true ] && [ "$changed" = true ]; then
-  exit 1
+elif ! cmp -s "$desired_manifest" "$manifest"; then
+  if [ "$check_only" = true ]; then
+    report_drift '🔄' manifest "$manifest"
+  else
+    cp -- "$desired_manifest" "$manifest"
+    report_item '✨' manifest "$manifest"
+  fi
+else
+  report_item '✅' manifest "$manifest"
 fi
 
 if [ "$check_only" = true ]; then
-  printf 'Claude configuration is in sync.\n'
+  if [ "$changed" = true ]; then
+    queue_warning 'Claude configuration has drift'
+    report_warnings
+    exit 1
+  fi
+  report_warnings
+  printf '✅ Claude configuration is in sync\n'
 else
-  printf 'Claude configuration is interlinked.\n'
+  report_warnings
+  printf '✅ Claude configuration is interlinked\n'
 fi

@@ -27,6 +27,7 @@ stow .
 - general <sup>[Built-in]</sup>
 - explore <sup>[Built-in]</sup>
 - prompt-editor
+- spell-scribe <sup>[OpenCode permission-scoped]</sup>
 - tech-skill-smith
 
 ## Within cells interlinked
@@ -83,9 +84,10 @@ A symlinked `CLAUDE.md` is also left untouched and reported as a conflict.
 Skill edits are reflected immediately through symlinks.
 Run the command again after changing agents or moving the checkout.
 Use `./interlink-claude --check` to report drift and conflicts without changing files.
+Both modes list every translation with status indicators: `✅` in sync, `➕` missing or created, `🔄` content or link drift, `✨` updated, `🔗` relinked, `🗑️` stale, `⚠️` warning or configuration drift, and `❌` failure.
 
-Agent translation accepts single-line, unquoted descriptions and scalar `allow`, `ask`, or `deny` values for `edit`, `bash`, and `webfetch`.
-It fails explicitly on more complex forms rather than silently generating different Claude behavior.
+Agent translation preserves scalar `allow`, `ask`, or `deny` values for `edit`, `bash`, and `webfetch`.
+Granular forms of those permissions are retained for OpenCode but cannot be enforced by the current Claude translator; translation emits a warning and relies on the generated agent prompt instead.
 
 
 ## Within cells interlinked
