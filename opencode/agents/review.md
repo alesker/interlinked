@@ -1,6 +1,8 @@
 ---
 description: Formal PR-style review of completed code changes
 mode: primary
+model: openai/gpt-5.6-sol
+variant: high
 temperature: 0.1
 permission:
   edit: deny

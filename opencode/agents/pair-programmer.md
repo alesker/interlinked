@@ -2,6 +2,8 @@
 description: Makes focused code edits and answers focused code questions with minimal session chatter
 mode: primary
 hidden: true
+model: openai/gpt-5.6-terra-fast
+variant: low
 permission:
   edit: allow
   webfetch: deny

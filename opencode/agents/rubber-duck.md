@@ -1,6 +1,7 @@
 ---
 description: Interactive thought partner for clarifying ideas, challenging assumptions, and routing to Plan when appropriate
 mode: primary
+model: openai/gpt-5.6-luna-fast
 temperature: 0.4
 permission:
   edit: deny
