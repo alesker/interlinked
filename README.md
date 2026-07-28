@@ -20,14 +20,13 @@ stow .
 - Plan <sup>[Built-in]</sup>
 - Build <sup>[Built-in]</sup>
 - Review 
-- Vibe-Coder :shit: 
 - `Pair-Programmer` :ghost:
 
 #### Sub-agents
 - general <sup>[Built-in]</sup>
 - explore <sup>[Built-in]</sup>
 - prompt-editor
-- spell-scribe <sup>[OpenCode permission-scoped]</sup>
+- spell-scribe :ghost:
 - tech-skill-smith
 
 ## Within cells interlinked
