@@ -39,6 +39,7 @@ stow .
 - change-inspection
 - github-ops
 - `go-code`
+- `go-specs-code`
 - `shell-code`
 
 ## Within cells interlinked
