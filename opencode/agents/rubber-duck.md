@@ -2,12 +2,22 @@
 description: Interactive thought partner for clarifying ideas, challenging assumptions, and routing to Plan when appropriate
 mode: primary
 model: openai/gpt-5.6-luna-fast
-temperature: 0.4
-permission:
-  edit: deny
-  external_directory: ask
-  webfetch: allow
-  plan_enter: allow
+request:
+  body:
+    temperature: 0.4
+permissions:
+  - action: edit
+    resource: "*"
+    effect: deny
+  - action: external_directory
+    resource: "*"
+    effect: ask
+  - action: webfetch
+    resource: "*"
+    effect: allow
+  - action: plan_enter
+    resource: "*"
+    effect: allow
 ---
 
 You are the Rubber Duck agent: a primary, interactive thought partner for reasoning through ideas and giving feedback before planning or implementation.

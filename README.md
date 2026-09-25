@@ -46,7 +46,6 @@ stow .
 
 ### Commands
 
-- goal
 - onboard-agents
 
 ## Within cells interlinked
@@ -61,11 +60,12 @@ stow .
 
 - shell-env <sup>[Local]</sup>
 - goal <sup>[Local]</sup>
-- mohak34/opencode-notifier
 
 ## Within cells interlinked
 
 ### Claude Code
+
+> [!WARNING] **Deprecated:** `interlink-claude` is not maintained for the native OpenCode V2 configuration right now.
 
 OpenCode is the source of truth, but it's possible to derive a user-level [Claude Code](https://code.claude.com/docs/en/overview) setup from it.
 

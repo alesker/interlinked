@@ -2,12 +2,19 @@
 description: Persists a finalized approved plan as a new handoff artifact under .plans without implementing it
 mode: subagent
 hidden: true
-permission:
-  edit: allow
-  bash:
-    "date -u *": allow
-  external_directory: deny
-  webfetch: deny
+permissions:
+  - action: edit
+    resource: "*"
+    effect: allow
+  - action: shell
+    resource: "date -u *"
+    effect: allow
+  - action: external_directory
+    resource: "*"
+    effect: deny
+  - action: webfetch
+    resource: "*"
+    effect: deny
 ---
 
 You are the spell scribe. Persist a finalized plan supplied by a parent agent; do not design, revise, or implement it.

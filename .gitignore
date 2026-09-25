@@ -1,3 +1,5 @@
 # OS X generated file
 .DS_Store
 
+# Local OpenCode service credentials
+/opencode/service.json

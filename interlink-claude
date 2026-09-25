@@ -10,6 +10,9 @@ Translate the OpenCode agents and deploy them, the shared skills, and the
 global instructions to ~/.claude without replacing configuration owned by
 anything else.
 
+Deprecated: this translator is not maintained for native OpenCode V2 agent
+configuration and may not preserve V2 permissions.
+
   --check  Report drift and conflicts without changing files
 EOF
 }
@@ -25,6 +28,8 @@ if [ "$#" -gt 1 ]; then
   usage >&2
   exit 2
 fi
+
+printf '⚠️  interlink-claude is deprecated and may not preserve native OpenCode V2 permissions\n' >&2
 
 script_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd -P)
 source_agents="$script_dir/opencode/agents"

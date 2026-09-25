@@ -1,11 +1,19 @@
 ---
 description: Improves AI instruction files by making them clearer, tighter, and easier to scan without losing constraints, intent, or practical guidance
 mode: subagent
-temperature: 0.1
-permission:
-  edit: allow
-  bash: deny
-  webfetch: deny
+request:
+  body:
+    temperature: 0.1
+permissions:
+  - action: edit
+    resource: "*"
+    effect: allow
+  - action: shell
+    resource: "*"
+    effect: deny
+  - action: webfetch
+    resource: "*"
+    effect: deny
 ---
 
 You are an expert editor of AI instruction artifacts such as `AGENTS.md`, `SKILL.md`, command prompts, and agent definitions.

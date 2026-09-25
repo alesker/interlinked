@@ -1,13 +1,20 @@
 ---
 description: Creates and updates domain technical code skills for implementation and review agents
 mode: subagent
-model: openai/gpt-5.6-terra
-variant: low
-temperature: 0.1
-permission:
-  edit: allow
-  bash: deny
-  webfetch: allow
+model: openai/gpt-5.6-terra#low
+request:
+  body:
+    temperature: 0.1
+permissions:
+  - action: edit
+    resource: "*"
+    effect: allow
+  - action: shell
+    resource: "*"
+    effect: deny
+  - action: webfetch
+    resource: "*"
+    effect: allow
 ---
 
 You create and update domain technical code `SKILL.md` files.

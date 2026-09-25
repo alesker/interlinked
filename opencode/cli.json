@@ -1,0 +1,67 @@
+{
+  "$schema": "https://opencode.ai/v2/cli.json",
+  "keybinds": {
+    "app.exit": "ctrl+c,ctrl+d,ctrl+q",
+    "command.palette.show": "ctrl+p",
+    "prompt.editor": "ctrl+e",
+    "theme.switch": "ctrl+t",
+    "session.sidebar.toggle": "ctrl+.",
+    "opencode.status": "ctrl+s",
+    "session.export": "none",
+    "session.new": "ctrl+n",
+    "session.list": "ctrl+l",
+    "session.timeline": "ctrl+g",
+    "session.fork": "none",
+    "session.rename": "none",
+    "session.share": "none",
+    "session.unshare": "none",
+    "session.interrupt": "escape",
+    "session.compact": "none",
+    "session.child.first": "ctrl+shift+down",
+    "session.parent": "up",
+    "model.list": "ctrl+m",
+    "model.cycle_recent": "none",
+    "model.cycle_recent_reverse": "none",
+    "model.cycle_favorite": "ctrl+f",
+    "model.cycle_favorite_reverse": "ctrl+shift+f",
+    "agent.list": "ctrl+a",
+    "agent.cycle": "tab",
+    "agent.cycle.reverse": "shift+tab",
+    "variant.cycle": "ctrl+`",
+    "variant.list": "ctrl+i",
+    "session.page.up": "none",
+    "session.page.down": "none",
+    "session.line.up": "none",
+    "session.line.down": "none",
+    "session.half.page.up": "none",
+    "session.half.page.down": "none",
+    "session.first": "none",
+    "session.last": "none",
+    "session.message.next": "ctrl+]",
+    "session.message.previous": "ctrl+[",
+    "session.messages_last_user": "none",
+    "messages.copy": "ctrl+y",
+    "session.undo": "ctrl+shift+u",
+    "session.redo": "ctrl+shift+r"
+  },
+  "diffs": { "wrap": "word" },
+  "session": {
+    "sidebar": "hide",
+    "scrollbar": false,
+    "thinking": "show",
+    "markdown": "rendered",
+    "permissions": "prompt"
+  },
+  "attention": {
+    "notifications": true,
+    "sound": true
+  },
+  "animations": true,
+  "theme": {
+    "name": "gruvbox",
+    "mode": "system"
+  },
+  "tabs": {
+    "mode": "off"
+  }
+}
