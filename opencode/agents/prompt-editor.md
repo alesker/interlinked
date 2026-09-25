@@ -1,9 +1,7 @@
 ---
 description: Improves AI instruction files by making them clearer, tighter, and easier to scan without losing constraints, intent, or practical guidance
 mode: subagent
-request:
-  body:
-    temperature: 0.1
+model: openai/gpt-6-luna#medium
 permissions:
   - action: edit
     resource: "*"

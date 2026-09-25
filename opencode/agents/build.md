@@ -1,5 +1,5 @@
 ---
-model: openai/gpt-5.6-terra#medium
+model: openai/gpt-6-sol#medium
 permissions:
   - action: webfetch
     resource: "*"

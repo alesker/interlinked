@@ -1,5 +1,5 @@
 ---
-model: openai/gpt-5.6-sol#high
+model: openai/gpt-6-astra#high
 permissions:
   - action: webfetch
     resource: "*"

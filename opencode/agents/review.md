@@ -1,10 +1,7 @@
 ---
 description: Formal PR-style review of completed code changes
 mode: primary
-model: openai/gpt-5.6-sol#high
-request:
-  body:
-    temperature: 0.1
+model: openai/gpt-6-astra#high
 permissions:
   - action: edit
     resource: "*"

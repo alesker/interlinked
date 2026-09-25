@@ -2,6 +2,7 @@
 description: Persists a finalized approved plan as a new handoff artifact under .plans without implementing it
 mode: subagent
 hidden: true
+model: openai/gpt-6-luna#low
 permissions:
   - action: edit
     resource: "*"

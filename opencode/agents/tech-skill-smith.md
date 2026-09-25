@@ -1,10 +1,7 @@
 ---
 description: Creates and updates domain technical code skills for implementation and review agents
 mode: subagent
-model: openai/gpt-5.6-terra#low
-request:
-  body:
-    temperature: 0.1
+model: openai/gpt-6-luna#medium
 permissions:
   - action: edit
     resource: "*"
