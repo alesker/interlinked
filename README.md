@@ -60,6 +60,7 @@ stow .
 
 - shell-env <sup>[Local]</sup>
 - goal <sup>[Local]</sup>
+- spell-library <sup>[Local]</sup>
 
 ## Within cells interlinked
 

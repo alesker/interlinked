@@ -22,9 +22,12 @@
     { "action": "shell", "resource": "which*", "effect": "allow" },
     { "action": "shell", "resource": "mkdir*", "effect": "allow" },
     { "action": "shell", "resource": "pwd*", "effect": "allow" },
-    { "action": "edit", "resource": "*", "effect": "ask" },
     { "action": "webfetch", "resource": "*", "effect": "ask" },
-    { "action": "external_directory", "resource": "*", "effect": "deny" }
+    { "action": "edit", "resource": "*", "effect": "ask" },
+    { "action": "external_directory", "resource": "*", "effect": "deny" },
+    { "action": "external_directory", "resource": "~/.opencode/plan/*", "effect": "allow" },
+    { "action": "read", "resource": "~/.opencode/plan/*", "effect": "allow" },
+    { "action": "edit", "resource": "~/.opencode/plan/*", "effect": "deny" }
   ],
   "mcp": {
     "servers": {

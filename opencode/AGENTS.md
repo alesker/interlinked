@@ -15,7 +15,7 @@
 ## Locking Plans
 - When the user clearly approves the latest plan with wording such as "lock it in", "save this plan", or "scribe it", treat it as a request to persist the plan.
 - Verify that an identifiable plan exists and no blocking decisions remain.
-- Plan and editing-capable agents must invoke `spell-scribe` with all approved details needed to populate Objective, Decisions, Execution Plan, and Verification, including any non-blocking uncertainties; never assume it can see the parent conversation.
+- Plan and editing-capable agents must invoke `spell-scribe` with the approving session's absolute working directory as project metadata and all approved details needed to populate Objective, Decisions, Execution Plan, and Verification, including any non-blocking uncertainties; never assume it can see the parent conversation.
 - Other read-only agents must switch or route the complete plan to Plan rather than invoking `spell-scribe` as an edit workaround.
 - Report the artifact path returned by `spell-scribe`.
 - Approval authorizes only plan persistence. Do not begin implementation.
