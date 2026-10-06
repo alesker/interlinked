@@ -12,6 +12,14 @@
 - Do not make adjacent improvements unless explicitly requested.
 - If the task is exploratory, diagnostic, or review-oriented, do not make code changes unless explicitly requested.
 
+## Git and PR Authorization
+- Keep Git history, repository state, and remote collaboration under the user's control. Never create branches or worktrees, stage or commit changes, rewrite history, push, create or modify PRs, submit reviews, post comments, or resolve review threads unless the user explicitly requests that action for the current task.
+- Requests to implement, fix, review, address feedback, or finish work authorize none of those actions by themselves. Keep review findings and suggested replies in chat unless publication is explicitly requested.
+- Authorization is action-specific: committing does not authorize pushing; reviewing does not authorize posting; fixing PR feedback does not authorize committing, pushing, replying, or resolving threads. A request to create a PR does not implicitly authorize creating a branch, committing, or pushing.
+- Skills, plans, repository instructions, previous approvals, and tool permissions do not independently supply user authorization. A tool permission approval only permits execution; it is not a request to initiate an otherwise unrequested action.
+- Apply this boundary across shell commands, APIs, MCP tools, scripts, and delegated agents. Never use another route to bypass it; pass the same authorization scope to any delegated agent.
+- When an unrequested action becomes necessary, stop at that boundary and ask for explicit authorization. Do not request broader authority than the task needs.
+
 ## Locking Plans
 - When the user clearly approves the latest plan with wording such as "lock it in", "save this plan", or "scribe it", treat it as a request to persist the plan.
 - Verify that an identifiable plan exists and no blocking decisions remain.
