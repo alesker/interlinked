@@ -2,7 +2,7 @@
 description: Makes focused code edits and answers focused code questions with minimal session chatter
 mode: primary
 hidden: true
-model: openai/gpt-6-sol-fast#low
+model: openai/gpt-6.1-sol-fast#low
 permissions:
   - action: edit
     resource: "*"
