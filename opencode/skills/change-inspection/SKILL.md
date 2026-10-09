@@ -17,10 +17,17 @@ This is a lightweight local correctness pass, not a formal PR review. It is inte
 Focus on touched code and nearby paths needed to assess local correctness. Use loaded domain skills only where they apply to the inspected change:
 - spelling, naming, and obvious consistency mistakes
 - suspicious conditionals, branches, or data flow
-- missed edge cases or incomplete state handling
-- missing error handling or cleanup
+- unhandled states or edge cases reachable under supported usage
+- missing handling for concrete operational failures or required cleanup
+- redundant validation, speculative guards, unnecessary indirection, or fallbacks that hide failures
 - incomplete propagation within the touched path
 - obvious local test gaps or weak assertions
+
+Ground findings in established contracts, relevant callers, supported inputs, or concrete execution paths.
+Before recommending a guard or recovery path, establish that the condition can occur and that handling belongs here.
+Do not request defenses against states already excluded by construction or prior validation.
+Tie test-gap findings to meaningful behavior or regressions.
+No findings is a valid outcome.
 
 Do not broaden into architecture, abstraction boundaries, API shape, test strategy, merge risk, or PR-readiness. Leave formal review judgment to the review agent.
 
@@ -41,4 +48,4 @@ Domain skills are additive to `change-inspection`; they do not replace this insp
 
 - Change summary
 - Inspection findings
-- Suggested fixes and improvements, if any
+- Smallest suggested corrections for reported findings, if any

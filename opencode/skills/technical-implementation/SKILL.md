@@ -18,12 +18,17 @@ Do not use this for narrow edits inside established code unless the change is co
 3. Domain skill loading: before editing, load every relevant domain-specific skill that exists.
    Examples: load `go-code` for Go files and Go packages; load `shell-code` for shell scripts.
 4. Implementation guidance: use this skill for the general implementation workflow, and use loaded domain skills upfront to shape domain-specific design choices.
-5. Local fit: prefer clear existing patterns; use loaded domain skills to avoid weak new structure or behavior.
-6. Scope control: keep changes small and cohesive. Do not add abstractions, dependencies, or compatibility layers unless required.
+5. Local fit: inspect nearby implementations and relevant callers to establish conventions and internal contracts.
+6. Follow the global Code Style rules; use loaded domain skills for decisions relevant to the task.
+7. Scope control: keep changes small and cohesive. Do not add abstractions, dependencies, or compatibility layers unless required.
 
-Domain skills are additive to `technical-implementation`; they do not replace this implementation workflow. If multiple domains are materially touched, load each relevant domain skill.
+Domain skills are additive to `technical-implementation`; they do not replace this implementation workflow.
+If multiple domains are materially touched, load each relevant domain skill.
 
 # Final inspection
+
+First simplify the implementation: remove speculative branches, redundant validation, and unnecessary indirection introduced by the change.
+Each remaining guard, fallback, or abstraction should serve a current requirement or concrete execution path.
 
 Before finalizing non-trivial implementation work, use `change-inspection` as the lightweight inspection pass.
 

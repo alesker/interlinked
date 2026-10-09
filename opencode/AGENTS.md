@@ -39,6 +39,15 @@
 - Prefer the smallest change that solves the stated problem.
 - Avoid adding new dependencies unless justified.
 
+## Code Style
+- Prefer direct, idiomatic code that follows the surrounding codebase.
+- Trust established internal contracts and invariants. Validate untrusted input at its entry boundary; do not repeat validation through internal layers.
+- Do not add speculative guards, fallback values, retries, recovery, or compatibility branches.
+- Handle operational failures using existing conventions. Do not hide broken invariants with silent no-ops, empty results, or successful-looking defaults.
+- Prefer straightforward control flow and concrete implementations.
+- Add helpers, abstractions, or configuration only when they simplify the current task; do not design for hypothetical reuse.
+- Use meaningful domain names and comments that explain non-obvious decisions rather than narrating the code.
+
 ## Verification
 - Summarize what changed.
 - Summarize what was verified.
