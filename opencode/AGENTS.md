@@ -64,6 +64,7 @@
 - If the task cannot be completed without new software, stop and clearly say so under the no-install rule.
 
 ## Skill Routing Hints
+- When the user asks to search, read, create, or update information in Obsidian, load the `obsidian` skill and use the Obsidian CLI. If the operation cannot be performed, explain the limitation before choosing another access method.
 - For exploratory technical investigation, prefer the `technical-research` skill.
 - For defect diagnosis, regressions, crashes, flaky tests, or unclear failures, prefer the `bug-triage` skill.
 - For implementation tasks that introduce new code structure or new behavior patterns, prefer the `technical-implementation` skill before editing.

@@ -38,6 +38,7 @@ stow .
 - technical-implementation
 - change-inspection
 - github-ops
+- obsidian
 - `go-code`
 - `go-specs-code`
 - `shell-code`
@@ -61,6 +62,7 @@ stow .
 - shell-env <sup>[Local]</sup>
 - goal <sup>[Local]</sup>
 - spell-library <sup>[Local]</sup>
+- obsidian-library <sup>[Local]</sup>
 
 ## Within cells interlinked
 
