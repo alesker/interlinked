@@ -63,12 +63,18 @@
 - Prefer solutions that use what is already available in the environment or already declared in the project.
 - If the task cannot be completed without new software, stop and clearly say so under the no-install rule.
 
-## Skill Routing Hints
+## Routing Hints
+
+### Skills
 - When the user asks to search, read, create, or update information in Obsidian, load the `obsidian` skill and use the Obsidian CLI. If the operation cannot be performed, explain the limitation before choosing another access method.
 - For exploratory technical investigation, prefer the `technical-research` skill.
 - For defect diagnosis, regressions, crashes, flaky tests, or unclear failures, prefer the `bug-triage` skill.
 - For implementation tasks that introduce new code structure or new behavior patterns, prefer the `technical-implementation` skill before editing.
 - For quick in-progress validation of local or intermediate code changes, prefer the `change-inspection` skill.
-- Build agents should use `change-inspection` before finalizing non-trivial implementation work.
+- Build agents should use `change-inspection` before finalizing implementation work.
 - Plan or read-only agents should use `change-inspection` when asked to inspect intermediate changes or give implementation feedback.
-- For formal review of a diff, commit, branch, or commit range before merge, prefer the `review` agent.
+
+### Sub-agents
+- Build agents should invoke `review` after verification and self-inspection, before reporting completion of substantive implementation work.
+  Judge by behavioral impact, complexity, and risk (not diff size or edit count) to evaluate if the work is substantive enough for automatic `review`.
+  Skip automatic review for investigation, operational information gathering, reports, and straightforward low-risk edits.
