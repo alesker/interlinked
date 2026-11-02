@@ -1,0 +1,24 @@
+---
+skill bundle: |-
+  !bash /dev/fd/3 "$@" 3<<'BUNDLE'
+  set -eo pipefail
+
+  file=''
+  args=()
+  while (($#)); do
+    case "$1" in
+      --file) file=$2; shift 2 ;;
+      --file=*) file=${1#*=}; shift ;;
+      --) shift; args+=("$@"); break ;;
+      *) args+=("$1"); shift ;;
+    esac
+  done
+  entries=$(jq -c '.[] | to_entries[] | .key as $repo | .value[] | [$repo, .]' -- "${file:?--file is required}")
+
+  # A separate descriptor keeps stdin available to gh.
+  while IFS= read -r entry <&4 && [[ -n "$entry" ]]; do
+    repository=$(jq -r '.[0]' <<< "$entry")
+    skill=$(jq -r '.[1]' <<< "$entry")
+    gh skill install --force "$repository" "$skill" "${args[@]}"
+  done 4<<< "$entries"
+  BUNDLE

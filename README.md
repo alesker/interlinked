@@ -43,6 +43,24 @@ stow .
 - `go-specs-code`
 - `shell-code`
 
+#### Third-party skills
+
+Third-party skills are declared in [`skills.json`](skills.json) and are installed with `gh skill install` (using `gh skill bundle` alias).
+
+`gh skill bundle` alias requires `gh`, Bash, and `jq`.
+
+Import it:
+
+```sh
+gh alias import .gh/aliases.yml
+```
+
+Use it:
+
+```sh
+gh skill bundle --file skills.json --dir "$HOME/.agents/skills"
+```
+
 ## Within cells interlinked
 
 ### Commands

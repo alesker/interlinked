@@ -2,3 +2,5 @@
 --dotfiles
 --ignore=\.stowrc
 --ignore=\.DS_Store
+--ignore=^\.gh$
+--ignore=^skills\.json$
